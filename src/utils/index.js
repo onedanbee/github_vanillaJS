@@ -7,3 +7,19 @@ export const debounce = (callback, limit = 200) => {
     }, limit);
   };
 };
+
+export const sortUserId = (userList) => {
+  if (userList === null) {
+    return;
+  }
+
+  const tempUserList = [...userList];
+  tempUserList.sort((a, b) => {
+    return a.login.localeCompare(b.login);
+  });
+  return tempUserList;
+};
+
+export const calculateTotalPage = (totalCount, perPage) => {
+  return Math.ceil(totalCount / perPage);
+};
