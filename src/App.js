@@ -1,5 +1,6 @@
 console.log('start!');
 import SearchInput from './components/SearchInput';
+import UserList from './components/UserList';
 import { getUserList } from './api';
 import { sortUserId, calculateTotalPage } from './utils/index';
 
@@ -37,14 +38,23 @@ export default function App($app) {
         userList: [...sortData],
         totalPage: totalPage,
         searchId: searchUserName,
+        isLoading: !this.state.isLoading,
       });
     },
+  });
+
+  const userList = new UserList({
+    $app,
+    initialState: this.state.userList
   });
 
   this.setState = (nextState) => {
     this.state = nextState;
     console.log('this.state', this.state);
     if (this.state === nextState) {
+      userList.setState({
+        ...this.state,
+      });
     }
   };
 }
